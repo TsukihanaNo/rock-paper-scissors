@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="e">
+    <head>
+        <meta charset="utf-8">
+        <title>rock paper scissors</title>
+    </head>
+    <body>
+        <div class="game-container">
+            <div class="score-board">
+                <span class="score player">Player Score: 0</span>
+                <span class="score computer">Computer Score: 0</span>
+            </div>
+            <div class="buttons-container">
+            <button value="rock">rock</button>
+            <button value="paper">paper</button>
+            <button value="scissors">scissors</button>
+            </div>
+            <p class="message">Message:</p>
+        </div>
+        <style>
+            .game-container {
+                text-align: center;
+                height: 100vh;
+            }
+
+            .score-board {
+                margin-top: 10%;
+            }
+
+            .score {
+                width: 49%;
+                display: inline-block;
+            }
+
+            .buttons-container {
+                display: flex;
+                flex-direction: row;
+                height: 50%;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+            button {
+                height:150px;
+                width: 150px;
+                border: solid 2px black;
+                border-radius: 10px;
+                text-transform: uppercase;
+            }
+        </style>
+
+        <script>
+            function getComputerChoice(){
+                const choice = Math.floor(Math.random()*3);
+                switch(choice){
+                    case 0:
+                    return "rock";
+                    break;
+                    case 1:
+                    return "paper";
+                    break;
+                    case 2:
+                    return "scissor";
+                }
+            }
+
+        function game(event){
+            const computerSelection = getComputerChoice();
+            const message = document.querySelector(".message");
+            const playerScoreBoard = document.querySelector(".player");
+            const computerScoreBoard = document.querySelector(".computer");
+            if (event.target.value=="rock" && computerSelection=="paper"){
+                message.textContent = "Message: You Lose!";
+                computerScore++;
+            } else if (event.target.value=="rock" && computerSelection=="scissor"){
+                message.textContent = "Message: You Win!";
+                playerScore++;
+            } else if (event.target.value=="scissor" && computerSelection=="rock"){
+                message.textContent = "Message: You Lose!";
+                computerScore++;
+            } else if (event.target.value=="scissor" && computerSelection=="paper"){
+                message.textContent = "Message: You Win!";
+                playerScore++;
+            } else if (event.target.value=="paper" && computerSelection=="rock"){
+                message.textContent = "Message: You Win!";
+                playerScore++;
+            } else if (event.target.value=="paper" && computerSelection=="scissor"){
+                message.textContent = "Message: You Lose!";
+                computerScore++;
+            }else{
+                message.textContent = "Message: Tied!";
+            }
+
+            playerScoreBoard.textContent = `Player Score: ${playerScore}`
+            computerScoreBoard.textContent = `Computer Score: ${computerScore}`
+
+            if (playerScore==5){
+                alert("GAME OVER! You are the winner!");
+                computerScore=0;
+                playerScore=0;
+            }
+            if (computerScore==5){
+                alert("GAME OVER! You LOSE!")
+                computerScore=0;
+                playerScore=0;
+            }
+
+            playerScoreBoard.textContent = `Player Score: ${playerScore}`
+            computerScoreBoard.textContent = `Computer Score: ${computerScore}`
+
+        }
+
+        const buttons = document.querySelectorAll("button")
+        let playerScore = 0;
+        let computerScore = 0;
+        buttons.forEach(button => button.addEventListener("click",game))
+
+
+        </script>
+    </body>
+</html>
